@@ -1,6 +1,6 @@
 # Agent & Contributor Guidelines (`AGENTS.md`)
 
-<!-- One or two sentences: what this repository is and who consumes it. -->
+OpenTofu configuration for every repository in the hononeko org. An apply changes live GitHub settings for all of them, so review the plan before applying.
 
 All automated agents and human contributors must follow the rules in this document.
 
@@ -9,35 +9,18 @@ All automated agents and human contributors must follow the rules in this docume
 Before committing, all of these must pass:
 
 ```bash
-# <!-- format / lint command -->
-# <!-- test command -->
-# <!-- build / type-check command -->
+tofu fmt -check -recursive
+tofu init -backend=false && tofu validate
 ```
 
 ## 2. Rules
 
-<!-- Project-specific architecture, coding and security rules. Keep each one short and actionable. -->
+* **Standard first:** org-wide defaults live in `modules/repository`. A repository's entry in `repos.tf` only lists what differs from them.
+* **Never apply unreviewed:** run `tofu plan` and read every change before `tofu apply`. Agents only apply when explicitly asked.
+* **No secrets in the repository:** `backend.tfbackend` and state are git-ignored. State is encrypted client-side.
+* **Removing a repository archives it** (`archive_on_destroy`). It is never deleted.
+* **Pinned dependencies:** GitHub Actions are pinned by commit SHA with a version comment.
 
-* **No secrets in code or logs:** credentials come from the environment and are never logged.
-* **Pinned dependencies:** third-party GitHub Actions are pinned by commit SHA with a version comment.
+## 3. Commits
 
-## 3. Commits & Releases
-
-[Conventional Commits](https://www.conventionalcommits.org/), enforced locally by the `commit-msg` hook (`git config core.hooksPath .githooks`). Commit subjects become the release notes, so write them for a reader of the release.
-
-Versions follow the rules shared by all hononeko repositories in [`hononeko/actions`](https://github.com/hononeko/actions):
-
-* A `!` in the header (`feat!:`) or a `BREAKING CHANGE:` footer gives a **major** release.
-* `feat:` gives a **minor** release.
-* `docs:` and `test:` give no release.
-* Every other type gives a **patch** release.
-
-## 4. Repository Structure
-
-```
-.
-├── .githooks/
-│   └── commit-msg    # Conventional Commits check
-├── AGENTS.md         # This file
-└── README.md
-```
+[Conventional Commits](https://www.conventionalcommits.org/), enforced locally by the `commit-msg` hook (`git config core.hooksPath .githooks`).
