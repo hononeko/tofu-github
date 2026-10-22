@@ -1,4 +1,54 @@
-# repo-template
+# tofu-github
+
+OpenTofu configuration for every repository in the [hononeko](https://github.com/hononeko) org: settings, the "Default" ruleset, secret scanning and vulnerability reporting.
+
+## Standard
+
+Every repository gets these unless `repos.tf` overrides them:
+
+* **Merging:** squash and rebase only, auto-merge on (public repositories only), branches deleted after merge.
+* **Features:** issues and projects on; wiki and discussions off.
+* **Security:** Dependabot alerts on. Public repositories also get secret scanning with push protection and private vulnerability reporting.
+* **"Default" ruleset** (public repositories only; the free plan has no rulesets on private ones): on the default branch, no deletion or force pushes, linear history, signed commits, pull requests (squash or rebase, no approvals required). Org and repository admins can bypass it.
+
+New repositories are created from [`repo-template`](https://github.com/hononeko/repo-template). Removing a repository from `repos.tf` archives it.
+
+## Customizing a repository
+
+Add the settings that differ to its entry in `repos.tf`. See `modules/repository/variables.tf` for every option. For example:
+
+```hcl
+my-service = {
+  description = "What it does"
+  ruleset = {
+    status_checks = local.image_checks
+    code_scanning = local.codeql
+  }
+}
+```
+
+## Usage
+
+State is stored on SeaweedFS (`s3.kerrlab.app`) and encrypted client-side.
+
+```sh
+cp backend.tfbackend.example backend.tfbackend
+
+export AWS_ACCESS_KEY_ID=$(pass cluster/s3/aws_access_key_id)
+export AWS_SECRET_ACCESS_KEY=$(pass cluster/s3/aws_secret_access_key)
+export TF_VAR_tofu_encryption_passphrase=$(pass tofu/github/encryption_passphrase)
+export GITHUB_TOKEN=$(gh auth token)
+
+tofu init -backend-config=backend.tfbackend
+tofu plan
+tofu apply
+```
+
+The passphrase is also stored in OpenBao at `secret/tofu/github`. Without it the state can't be decrypted.
+
+Private vulnerability reporting isn't supported by the provider and is enabled through `gh api`, so `gh` must be installed.
+
+CI only checks formatting and validates the configuration. Apply runs locally.
 
 ## Development
 

@@ -1,0 +1,4 @@
+bucket = "tofu"
+endpoints = {
+  s3 = "https://s3.kerrlab.app"
+}
