@@ -8,7 +8,7 @@ terraform {
     }
   }
 
-  # Bucket and endpoint come from backend.tfbackend; credentials from AWS_ACCESS_KEY_ID / AWS_SECRET_ACCESS_KEY.
+  # Bucket, endpoint and AWS profile come from backend.tfbackend.
   backend "s3" {
     key                         = "github/hononeko.tfstate"
     region                      = "us-east-1"

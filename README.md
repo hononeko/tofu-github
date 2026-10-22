@@ -34,8 +34,6 @@ State is stored on SeaweedFS (`s3.kerrlab.app`) and encrypted client-side.
 ```sh
 cp backend.tfbackend.example backend.tfbackend
 
-export AWS_ACCESS_KEY_ID=$(pass cluster/s3/aws_access_key_id)
-export AWS_SECRET_ACCESS_KEY=$(pass cluster/s3/aws_secret_access_key)
 export TF_VAR_tofu_encryption_passphrase=$(pass tofu/github/encryption_passphrase)
 export GITHUB_TOKEN=$(gh auth token)
 
@@ -43,6 +41,8 @@ tofu init -backend-config=backend.tfbackend
 tofu plan
 tofu apply
 ```
+
+S3 credentials come from the `seaweedfs` profile in `~/.aws/credentials` (keys in `pass` at `cluster/s3/`). `AWS_ACCESS_KEY_ID` / `AWS_SECRET_ACCESS_KEY` in the environment take precedence over it.
 
 The passphrase is also stored in OpenBao at `secret/tofu/github`. Without it the state can't be decrypted.
 
