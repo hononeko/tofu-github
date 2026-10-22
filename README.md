@@ -13,6 +13,22 @@ Every repository gets these unless `repos.tf` overrides them:
 
 New repositories are created from [`repo-template`](https://github.com/hononeko/repo-template). Removing a repository from `repos.tf` archives it.
 
+## Adding a repository
+
+1. Add an entry to `local.repos` in `repos.tf`. An empty entry gets the standard:
+
+   ```hcl
+   my-service = {
+     description = "What it does"
+   }
+   ```
+
+   Set `visibility = "private"` for a private repository, or `template = null` to create it empty instead of from `repo-template`.
+2. Open a pull request. CI checks formatting and validates the configuration.
+3. After merging, run `tofu plan` from `main`, check that it only creates the new repository, then `tofu apply`.
+
+Add required status checks (`ruleset.status_checks`) in a later pull request, once the repository's CI has run and the check names exist. Until a required check reports, pull requests can't be merged.
+
 ## Customizing a repository
 
 Add the settings that differ to its entry in `repos.tf`. See `modules/repository/variables.tf` for every option. For example:
