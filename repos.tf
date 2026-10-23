@@ -89,7 +89,7 @@ locals {
         status_checks = [
           { context = "Sonar Analysis", integration_id = local.github_actions },
           { context = "validate / Lint & Test", integration_id = local.github_actions },
-          { context = "Integration Tests", integration_id = local.github_actions },
+          { context = "validate / Integration Tests", integration_id = local.github_actions },
           { context = "GitGuardian Security Checks", integration_id = local.gitguardian },
         ]
       }
