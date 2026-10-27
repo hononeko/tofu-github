@@ -67,7 +67,6 @@ locals {
           "validate / Lint, Test & Build",
           "image / Image (amd64)",
           "image / Image (arm64)",
-          "SonarCloud Code Analysis",
           "CodeQL",
           "GitGuardian Security Checks",
         ] : { context = c }]
@@ -87,7 +86,6 @@ locals {
       ruleset = {
         dismiss_stale_reviews_on_push = true
         status_checks = [
-          { context = "Sonar Analysis", integration_id = local.github_actions },
           { context = "validate / Lint & Test", integration_id = local.github_actions },
           { context = "validate / Integration Tests", integration_id = local.github_actions },
           { context = "GitGuardian Security Checks", integration_id = local.gitguardian },
