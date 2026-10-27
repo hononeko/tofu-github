@@ -84,6 +84,12 @@ locals {
       }
     }
 
+    hononeko-site = {
+      description  = "Landing pages for hononeko tools on hononeko.app, served by a Cloudflare Worker"
+      homepage_url = "https://hononeko.app"
+      topics       = ["cloudflare-workers", "landing-page", "static-site"]
+    }
+
     homelab-utils-docker = {
       description = "Lean, purpose-built Docker utility images for homelab workloads"
     }
