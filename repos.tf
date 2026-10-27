@@ -92,6 +92,17 @@ locals {
 
     homelab-utils-docker = {
       description = "Lean, purpose-built Docker utility images for homelab workloads"
+      ruleset = {
+        status_checks = [
+          { context = "Lint", integration_id = local.github_actions },
+          { context = "k8s-backup-tools / Image (amd64)", integration_id = local.github_actions },
+          { context = "k8s-backup-tools / Image (arm64)", integration_id = local.github_actions },
+          { context = "k8s-config-tools / Image (amd64)", integration_id = local.github_actions },
+          { context = "k8s-config-tools / Image (arm64)", integration_id = local.github_actions },
+          { context = "GitGuardian Security Checks", integration_id = local.gitguardian },
+        ]
+        code_scanning = local.codeql
+      }
     }
 
     koshin = {
