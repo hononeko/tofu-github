@@ -8,7 +8,7 @@ Every repository gets these unless `repos.tf` overrides them:
 
 * **Merging:** squash and rebase only, auto-merge on (public repositories only), branches deleted after merge.
 * **Features:** issues and projects on; wiki and discussions off.
-* **Security:** Dependabot alerts on. Public repositories also get secret scanning with push protection and private vulnerability reporting.
+* **Security:** Dependabot alerts on. Public repositories also get secret scanning with push protection and private vulnerability reporting. CodeQL's default setup is left as it is, unless `codeql_default_setup` is set: `false` for a repository that runs CodeQL from a workflow, since GitHub rejects a workflow's results while the default setup is on.
 * **"Default" ruleset** (public repositories only; the free plan has no rulesets on private ones): on the default branch, no deletion or force pushes, linear history, signed commits, pull requests (squash or rebase, no approvals required). Org and repository admins can bypass it.
 
 New repositories are created from [`repo-template`](https://github.com/hononeko/repo-template). Removing a repository from `repos.tf` archives it.

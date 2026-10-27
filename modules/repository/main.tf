@@ -77,6 +77,16 @@ resource "terraform_data" "private_vulnerability_reporting" {
   }
 }
 
+# Not supported by the provider. Code scanning is only available on public repositories on the free plan.
+resource "terraform_data" "codeql_default_setup" {
+  count            = local.public && var.config.codeql_default_setup != null ? 1 : 0
+  triggers_replace = [github_repository.this.repo_id, var.config.codeql_default_setup]
+
+  provisioner "local-exec" {
+    command = "gh api -X PATCH repos/hononeko/${github_repository.this.name}/code-scanning/default-setup -f state=${var.config.codeql_default_setup ? "configured" : "not-configured"}"
+  }
+}
+
 # Rulesets need a paid plan on private repositories.
 resource "github_repository_ruleset" "default" {
   count       = local.public ? 1 : 0

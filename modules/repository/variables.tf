@@ -23,6 +23,10 @@ variable "config" {
 
     dependabot_security_updates = optional(bool, false)
 
+    # CodeQL's default setup: null leaves it as it is. false for a repository that runs CodeQL from a workflow, since
+    # GitHub rejects a workflow's results while the default setup is on.
+    codeql_default_setup = optional(bool)
+
     # "Default" ruleset on the default branch. Only applied to public repositories (free plan).
     ruleset = optional(object({
       include                           = optional(list(string), ["~DEFAULT_BRANCH"])
