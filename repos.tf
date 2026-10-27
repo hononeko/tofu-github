@@ -171,6 +171,21 @@ locals {
         status_checks = [{ context = "Validate", integration_id = local.github_actions }]
       }
     }
+
+    traefik-plugin-cloudflare-realip = {
+      description          = "Traefik plugin: trust CF-Connecting-IP from Cloudflare ranges for X-Forwarded-For / X-Real-Ip"
+      codeql_default_setup = false
+      ruleset = {
+        status_checks = [
+          { context = "validate / Lint & Test", integration_id = local.github_actions },
+          { context = "validate / Yaegi", integration_id = local.github_actions },
+          { context = "validate / Traefik E2E (fastProxy false)", integration_id = local.github_actions },
+          { context = "validate / Traefik E2E (fastProxy true)", integration_id = local.github_actions },
+          { context = "GitGuardian Security Checks", integration_id = local.gitguardian },
+        ]
+        code_scanning = local.codeql
+      }
+    }
   }
 }
 
