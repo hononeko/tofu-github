@@ -64,6 +64,24 @@ locals {
       }
     }
 
+    doppel = {
+      description          = "Manage multiple Git accounts per folder: commit identity, SSH auth and signing keys"
+      codeql_default_setup = false
+      ruleset = {
+        status_checks = [
+          { context = "validate / Lint & Test", integration_id = local.github_actions },
+          { context = "validate / Test (macOS)", integration_id = local.github_actions },
+          { context = "validate / Test (Git 2.34)", integration_id = local.github_actions },
+          { context = "validate / Compile (linux/amd64)", integration_id = local.github_actions },
+          { context = "validate / Compile (linux/arm64)", integration_id = local.github_actions },
+          { context = "validate / Compile (darwin/amd64)", integration_id = local.github_actions },
+          { context = "validate / Compile (darwin/arm64)", integration_id = local.github_actions },
+          { context = "GitGuardian Security Checks", integration_id = local.gitguardian },
+        ]
+        code_scanning = local.codeql
+      }
+    }
+
     electric-pickle = {
       visibility = "private"
     }
@@ -160,6 +178,25 @@ locals {
 
     repo-template = {
       is_template = true
+    }
+
+    sshx = {
+      description          = "Modern, responsive TUI SSH connection manager and OpenSSH config wizard built with Charm"
+      codeql_default_setup = false
+      ruleset = {
+        status_checks = [
+          { context = "validate / Lint & Test", integration_id = local.github_actions },
+          { context = "validate / Test (macos-latest)", integration_id = local.github_actions },
+          { context = "validate / Test (windows-latest)", integration_id = local.github_actions },
+          { context = "validate / Compile (linux/amd64)", integration_id = local.github_actions },
+          { context = "validate / Compile (linux/arm64)", integration_id = local.github_actions },
+          { context = "validate / Compile (darwin/amd64)", integration_id = local.github_actions },
+          { context = "validate / Compile (darwin/arm64)", integration_id = local.github_actions },
+          { context = "validate / Compile (windows/amd64)", integration_id = local.github_actions },
+          { context = "GitGuardian Security Checks", integration_id = local.gitguardian },
+        ]
+        code_scanning = local.codeql
+      }
     }
 
     thread-udp-proxy = {

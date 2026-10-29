@@ -27,7 +27,7 @@ New repositories are created from [`repo-template`](https://github.com/hononeko/
 2. Open a pull request. CI checks formatting and validates the configuration.
 3. After merging, run `tofu plan` from `main`, check that it only creates the new repository, then `tofu apply`.
 
-For a repository that already exists, also add its name to `local.imported_repos` in `imports.tf`, so the plan imports it instead of creating it, and give its entry the description and topics it has: the plan changes everything else to the standard.
+For a repository that already exists, also add its name to `local.imported_repos` in `imports.tf`, so the plan imports it instead of creating it, and give its entry the description and topics it has: the plan changes everything else to the standard. If it already has a ruleset named Default, add it to `local.imported_rulesets` too (`gh api repos/hononeko/<name>/rulesets`): GitHub rejects a second ruleset with the same name.
 
 Add required status checks (`ruleset.status_checks`) in a later pull request, once the repository's CI has run and the check names exist. Until a required check reports, pull requests can't be merged.
 
