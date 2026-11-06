@@ -176,6 +176,11 @@ locals {
       }
     }
 
+    renovate-config = {
+      description = "Shared Renovate configuration presets for the hononeko organization"
+      template    = null
+    }
+
     repo-template = {
       is_template = true
     }

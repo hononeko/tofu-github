@@ -1,7 +1,7 @@
 # Repositories that existed before they were managed here. An import is a no-op once the resource is in state, so
 # these can be removed after the apply that imports them.
 locals {
-  imported_repos = ["traefik-plugin-cloudflare-realip", "sshx", "doppel"]
+  imported_repos = ["traefik-plugin-cloudflare-realip", "sshx", "doppel", "renovate-config"]
 
   # Default rulesets that existed before their repository was managed here, by repository.
   imported_rulesets = {
