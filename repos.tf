@@ -43,6 +43,13 @@ locals {
       }
     }
 
+    agentic-ticket-proxy = {
+      description = "Outbound-polling orchestrator automating Kaneo development tickets with Claude/Antigravity, Telegram HITL, and multi-repo Git worktrees"
+      topics      = ["automation", "claude-code", "homelab", "kaneo", "kotlin", "ktor", "kubernetes", "telegram"]
+      visibility  = "private"
+      template    = null
+    }
+
     bw-cli-docker = {
       description          = "Simple Docker Image wrapper that runs the Bitwarden CLI and exposes it as a simple REST API webhook"
       codeql_default_setup = false
