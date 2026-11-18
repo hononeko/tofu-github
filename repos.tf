@@ -73,6 +73,7 @@ locals {
 
     doppel = {
       description          = "Manage multiple Git accounts per folder: commit identity, SSH auth and signing keys"
+      homepage_url         = "https://doppel.hononeko.app"
       codeql_default_setup = false
       ruleset = {
         status_checks = [
@@ -131,7 +132,8 @@ locals {
     }
 
     koshin = {
-      description          = "Stateless, horizontally scalable Renovate CLI orchestrator (Kotlin/Ktor, NATS JetStream, Valkey, KEDA)"
+      description          = "Stateless, horizontally scalable Renovate CLI orchestrator (Kotlin/Ktor, NATS JetStream, Valkey)"
+      homepage_url         = "https://koshin.hononeko.app"
       codeql_default_setup = false
       ruleset = {
         status_checks = [
@@ -164,6 +166,12 @@ locals {
       visibility = "private"
     }
 
+    miru = {
+      description  = "Lightweight media server telemetry, live stream monitor, playback history tracker, and library stats engine (Kotlin/Ktor backend with Arrow-kt, SQLite & PostgreSQL support, and a future Svelte/Astro frontend)"
+      homepage_url = "https://miru.hononeko.app"
+      topics       = ["kotlin", "ktor", "media-server", "plex", "self-hosted", "telemetry"]
+    }
+
     qbit-gluetun-sync = {
       description          = "Lightweight, event-driven Go sidecar that synchronizes dynamic port forwarding from Gluetun (ProtonVPN/WireGuard) to qBittorrent via WebUI."
       codeql_default_setup = false
@@ -194,6 +202,7 @@ locals {
 
     sshx = {
       description          = "Modern, responsive TUI SSH connection manager and OpenSSH config wizard built with Charm"
+      homepage_url         = "https://sshx.hononeko.app"
       codeql_default_setup = false
       ruleset = {
         status_checks = [
@@ -217,15 +226,6 @@ locals {
       codeql_default_setup = false
       ruleset = {
         status_checks = local.image_checks
-        code_scanning = local.codeql
-      }
-    }
-
-    threadificatorr = {
-      dependabot_security_updates = true
-      ruleset = {
-        include       = ["~DEFAULT_BRANCH", "refs/heads/release/**"]
-        creation      = true
         code_scanning = local.codeql
       }
     }
