@@ -140,8 +140,10 @@ locals {
           { context = "Build & Code Verification / Build & Code Verification", integration_id = local.github_actions },
           { context = "Integration Tests", integration_id = local.github_actions },
           { context = "Validate Manifests", integration_id = local.github_actions },
-          { context = "Image Build & Smoke Test / Image (amd64)", integration_id = local.github_actions },
-          { context = "Image Build & Smoke Test / Image (arm64)", integration_id = local.github_actions },
+          { context = "Image Build & Smoke Test / Image (proxy, amd64)", integration_id = local.github_actions },
+          { context = "Image Build & Smoke Test / Image (proxy, arm64)", integration_id = local.github_actions },
+          { context = "Image Build & Smoke Test / Image (worker, amd64)", integration_id = local.github_actions },
+          { context = "Image Build & Smoke Test / Image (worker, arm64)", integration_id = local.github_actions },
           { context = "GitGuardian Security Checks", integration_id = local.gitguardian },
         ]
         code_scanning = local.codeql
